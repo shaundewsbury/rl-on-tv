@@ -7,54 +7,33 @@ import FixtureList from "../components/FixtureList";
 import Fixture from "../components/Fixture";
 import SkeletonLoader from "../components/SkeletonLoader";
 
+import { fetchFixtures } from "../components/fetchFixtures";
+
 export default function Home() {
-  const [fixtureData, setFixtureData] = useState([]);
+  let fixtures = fetchFixtures();
+
   const [loadComplete, setLoadComplete] = useState(false);
-  useEffect(() => {
-    fetch(
-      "https://rlontv-default-rtdb.europe-west1.firebasedatabase.app/fixtures.json"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        const loadedFixtures = [];
 
-        for (const key in data) {
-          loadedFixtures.push({
-            id: key,
-            competition: data[key].competition,
-            round: data[key].round,
-            date: data[key].date,
-            homeTeam: data[key].homeTeam,
-            awayTeam: data[key].awayTeam,
-            time: data[key].time,
-            channel: data[key].channel,
-          });
-        }
-
-        setFixtureData(loadedFixtures);
-        setTimeout(function () {
-          setLoadComplete(true);
-        }, 1000);
-      });
-  }, []);
-
-  function getEndOfCurrentWeek(x) {
-    var now = new Date();
-    now.setDate(now.getDate() + ((x + (7 - now.getDay())) % 7));
-    return now;
+  if (fixtures.length > 0) {
+    setTimeout(function () {
+      setLoadComplete(true);
+    }, 1000);
   }
 
-  let endOfCurrentWeek =
+  const getEndOfCurrentWeek = (x) => {
+    let now = new Date();
+    now.setDate(now.getDate() + ((x + (7 - now.getDay())) % 7));
+    return now;
+  };
+
+  const endOfCurrentWeek =
     getEndOfCurrentWeek(0).toISOString().split("T")[0] + 2359;
   const todaysDate =
     new Date().toISOString().split("T")[0] + new Date().getTime();
 
-  console.log(todaysDate);
-  const filteredFixtures = fixtureData.filter(
+  fixtures = fixtures.filter(
     (fixture) => (fixture.date < endOfCurrentWeek) & (fixture.date > todaysDate)
   );
-
-  console.log(filteredFixtures);
 
   return (
     <div>
@@ -79,7 +58,7 @@ export default function Home() {
             </>
           )}
           {loadComplete &&
-            filteredFixtures.map((fixture) => (
+            fixtures.map((fixture) => (
               <Fixture
                 key={fixture.id}
                 competition={fixture.competition}

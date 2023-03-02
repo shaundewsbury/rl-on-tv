@@ -17,7 +17,7 @@ const StyledNavigation = styled.ul`
   list-style: none;
 
   li {
-    background: ${Colours.base.white};
+    background: ${Colours.white};
     padding: ${Spacing.spacing8} ${Spacing.spacing16};
     box-shadow: 3px 3px 8px #001325;
 
@@ -33,7 +33,7 @@ const StyledNavigation = styled.ul`
     //     left: 50%;
     //     transform: translateX(-50%);
     //     height: 4px;
-    //     background: ${Colours.purple.light};
+    //     background: ${Colours.blues.light};
     //     margin-top: ${Spacing.spacing4};
     //     border-radius: 4px;
     //   }

@@ -16,17 +16,17 @@ const StyledFixture = styled(GridItem)`
   align-items: center;
   text-align: center;
   border-radius: 8px;
-  box-shadow: 4px 4px 8px #001325;
+  box-shadow: 4px 4px 8px ${Colours.blues.dark};
 
   p {
     ${Typography.paragraph.default}
   }
 
   .fixtureType {
-    background: ${Colours.purple.light};
+    background: ${Colours.blues.light};
     padding: ${Spacing.spacing8};
-    color: ${Colours.purple.dark};
-    border-radius: 0 4px 0 0;
+    color: ${Colours.blues.dark};
+    border-radius: 4px 4px 0 0;
   }
 
   img {
@@ -51,8 +51,25 @@ const StyledFixture = styled(GridItem)`
 import Clubs from "../data/Clubs";
 
 const Fixture = (props) => {
-  const homeTeamInfo = Clubs.sl.find((club) => club.name === props.homeTeam);
-  const awayTeamInfo = Clubs.sl.find((club) => club.name === props.awayTeam);
+  let homeTeamInfo, awayTeamInfo;
+
+  {
+    props.competition === "Super League" &&
+      (homeTeamInfo = Clubs.sl.find((club) => club.name === props.homeTeam));
+  }
+  {
+    props.competition === "Super League" &&
+      (awayTeamInfo = Clubs.sl.find((club) => club.name === props.awayTeam));
+  }
+
+  {
+    props.competition === "NRL" &&
+      (homeTeamInfo = Clubs.nrl.find((club) => club.name === props.homeTeam));
+  }
+  {
+    props.competition === "NRL" &&
+      (awayTeamInfo = Clubs.nrl.find((club) => club.name === props.awayTeam));
+  }
 
   const dateFormated = new Date(props.date).toLocaleDateString("en-us", {
     weekday: "long",

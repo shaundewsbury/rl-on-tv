@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Channels from "../data/Channels";
 import Clubs from "../data/Clubs";
 import Competition from "../data/Competition";
@@ -7,9 +8,14 @@ import Colours from "../components/design-configs/Colours";
 import Spacing from "../components/design-configs/Spacing";
 
 import { useRef } from "react";
+import {
+  GridContainer,
+  GridRow,
+  GridItem,
+} from "../components/design-configs/Grid";
 
 const StyledForm = styled.form`
-  background: ${Colours.base.white};
+  background: ${Colours.white};
   padding: ${Spacing.spacing24};
 
   display: flex;
@@ -25,8 +31,8 @@ const StyledForm = styled.form`
   }
 
   button {
-    background: ${Colours.purple.mid};
-    color: ${Colours.base.white};
+    background: ${Colours.blues.mid};
+    color: ${Colours.white};
     height: 40px;
     border-radius: 4px;
     padding: 0 ${Spacing.spacing32};
@@ -42,6 +48,8 @@ const FixtureInputPage = () => {
   const homeTeamRef = useRef("");
   const awayTeamRef = useRef("");
   const channelRef = useRef("");
+
+  console.log(competitionRef);
 
   async function addFixtureHandler(e) {
     e.preventDefault();
@@ -73,62 +81,95 @@ const FixtureInputPage = () => {
     console.log(data);
   }
 
+  const [competitionType, setCompetitionType] = useState("Super League");
+  const competitionChangeHandler = (e) => {
+    setCompetitionType(e.target.value);
+    console.log(e.target.value);
+  };
+
   return (
-    <StyledForm onSubmit={addFixtureHandler}>
-      <select id="competition" name="Competition" ref={competitionRef}>
-        <option hidden selected>
-          Competition
-        </option>
-        {Competition.map((comp) => (
-          <option key={comp.name} value={comp.name}>
-            {comp.name}
-          </option>
-        ))}
-      </select>
-      <input
-        id="round"
-        type="text"
-        placeholder="Round Number"
-        ref={roundRef}
-      ></input>
+    <GridContainer>
+      <GridRow>
+        <GridItem>
+          <StyledForm onSubmit={addFixtureHandler}>
+            <select
+              id="competition"
+              name="Competition"
+              ref={competitionRef}
+              onChange={competitionChangeHandler}
+            >
+              <option hidden selected>
+                Competition
+              </option>
+              {Competition.map((comp) => (
+                <option key={comp.name} value={comp.name}>
+                  {comp.name}
+                </option>
+              ))}
+            </select>
+            <input
+              id="round"
+              type="text"
+              placeholder="Round Number"
+              ref={roundRef}
+            ></input>
 
-      <input type="date" ref={dateRef} />
-      <input type="time" ref={timeRef} />
+            <input type="date" ref={dateRef} />
+            <input type="time" ref={timeRef} />
 
-      <select id="homeTeam" name="Home Team" ref={homeTeamRef}>
-        <option hidden selected>
-          Home Team
-        </option>
-        {Clubs.sl.map((club) => (
-          <option key={club.name} value={club.name}>
-            {club.name}
-          </option>
-        ))}
-      </select>
+            <select id="homeTeam" name="Home Team" ref={homeTeamRef}>
+              <option hidden selected>
+                Home Team
+              </option>
+              {competitionType === "Super League" &&
+                Clubs.sl.map((club) => (
+                  <option key={club.name} value={club.name}>
+                    {club.name}
+                  </option>
+                ))}
 
-      <select id="awayTeam" name="Away Team" ref={awayTeamRef}>
-        <option hidden selected>
-          Away Team
-        </option>
-        {Clubs.sl.map((club) => (
-          <option key={club.name} value={club.name}>
-            {club.name}
-          </option>
-        ))}
-      </select>
+              {competitionType === "NRL" &&
+                Clubs.nrl.map((club) => (
+                  <option key={club.name} value={club.name}>
+                    {club.name}
+                  </option>
+                ))}
+            </select>
 
-      <select id="channels" name="Channels" ref={channelRef}>
-        <option hidden selected>
-          TV Channel
-        </option>
-        {Channels.map((channel) => (
-          <option key={channel.id} value={channel.name}>
-            {channel.name}
-          </option>
-        ))}
-      </select>
-      <button>Submit</button>
-    </StyledForm>
+            <select id="awayTeam" name="Away Team" ref={awayTeamRef}>
+              <option hidden selected>
+                Away Team
+              </option>
+              {competitionType === "Super League" &&
+                Clubs.sl.map((club) => (
+                  <option key={club.name} value={club.name}>
+                    {club.name}
+                  </option>
+                ))}
+
+              {competitionType === "NRL" &&
+                Clubs.nrl.map((club) => (
+                  <option key={club.name} value={club.name}>
+                    {club.name}
+                  </option>
+                ))}
+            </select>
+
+            <select id="channels" name="Channels" ref={channelRef}>
+              <option hidden selected>
+                TV Channel
+              </option>
+              {Channels.map((channel) => (
+                <option key={channel.id} value={channel.name}>
+                  {channel.name}
+                </option>
+              ))}
+            </select>
+            <button>Submit</button>
+          </StyledForm>
+        </GridItem>
+      </GridRow>
+    </GridContainer>
   );
 };
 

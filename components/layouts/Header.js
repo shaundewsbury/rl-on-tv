@@ -10,7 +10,7 @@ const StyledHeader = styled.header`
 
   h1 {
     ${Typography.heading.h24};
-    color: ${Colours.base.white};
+    color: ${Colours.white};
     text-align: center;
     margin-bottom: ${Spacing.spacing16};
 

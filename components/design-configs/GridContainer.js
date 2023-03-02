@@ -4,7 +4,6 @@ import GridConfig from "./GridConfig";
 const StyledGridContainer = styled.div`
   display: grid;
   padding: 0 ${GridConfig.mobile.margin};
-  place-items: center;
   max-width: 1280px;
 
   @media screen and (min-width: ${GridConfig.tablet.minWidth}) {

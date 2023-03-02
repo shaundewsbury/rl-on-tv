@@ -53,75 +53,71 @@ const Clubs = {
   nrl: [
     {
       name: "Brisbane Broncos",
-      image: "/clubs/sl/castleford.png",
+      image: "/clubs/nrl/broncos.svg",
     },
     {
       name: "	Canberra Raiders",
-      image: "/clubs/sl/catalans.png",
+      image: "/clubs/nrl/raiders.svg",
     },
     {
       name: "	Canterbury Bulldogs",
-      image: "/clubs/sl/huddersfield.png",
+      image: "/clubs/nrl/bulldogs.svg",
     },
     {
       name: "Cronulla Sharks",
-      image: "/clubs/sl/hull.png",
+      image: "/clubs/nrl/sharks.svg",
     },
     {
       name: "Dolphins",
-      image: "/clubs/sl/hull-kr.png",
+      image: "/clubs/nrl/dolphins.svg",
     },
     {
       name: "Gold Coast Titans",
-      image: "/clubs/sl/leeds.png",
-    },
-    {
-      name: "Leigh Leopards",
-      image: "/clubs/sl/leight.png",
+      image: "/clubs/nrl/titans.svg",
     },
     {
       name: "Manly Sea Eagles",
-      image: "/clubs/sl/salford.png",
+      image: "/clubs/nrl/sea-eagles.svg",
     },
     {
       name: "Melbourne Storm",
-      image: "/clubs/sl/saints.png",
+      image: "/clubs/nrl/storm.svg",
     },
     {
       name: "New Zealand Warriors",
-      image: "/clubs/sl/wakefield.png",
+      image: "/clubs/nrl/warriors.svg",
     },
     {
       name: "Newcastle Knights",
-      image: "/clubs/sl/warrington.png",
+      image: "/clubs/nrl/knights.svg",
     },
     {
       name: "North Queensland Cowboys",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/cowboys.svg",
     },
     {
       name: "Parramatta Eels",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/eels.svg",
     },
     {
       name: "Penrith Panthers",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/panthers.svg",
     },
     {
       name: "South Sydney Rabbitohs",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/rabbitohs.svg",
     },
     {
       name: "St. George Illawarra Dragons",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/dragons.svg",
     },
     {
       name: "Sydney Roosters",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/roosters.svg",
     },
     {
       name: "Wests Tigers",
-      image: "/clubs/sl/wigan.png",
+      image: "/clubs/nrl/tigers.svg",
     },
   ],
 };

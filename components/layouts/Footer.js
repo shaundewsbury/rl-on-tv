@@ -3,8 +3,8 @@ import Colours from "../design-configs/Colours";
 import Spacing from "../design-configs/Spacing";
 
 const StyledFooter = styled.footer`
-  background: ${Colours.base.white};
-  color: ${Colours.purple.dark};
+  background: ${Colours.white};
+  color: ${Colours.blues.dark};
   padding: ${Spacing.spacing16};
   text-align: center;
 `;

@@ -18,9 +18,9 @@ const StyledFixture = styled(GridItem)`
   box-shadow: 4px 4px 8px #001325;
 
   .fixtureType {
-    background: ${Colours.purple.light};
+    background: ${Colours.blues.light};
     padding: ${Spacing.spacing8};
-    color: ${Colours.purple.dark};
+    color: ${Colours.blues.dark};
     border-radius: 0 4px 0 0;
   }
 

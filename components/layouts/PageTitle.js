@@ -10,8 +10,8 @@ import {
 } from "../design-configs/Grid";
 
 const StyledPageTitle = styled.h2`
-  ${Typography.heading.h16};
-  color: ${Colours.base.white};
+  ${Typography.heading.h20};
+  color: ${Colours.white};
   margin-bottom: ${Spacing.spacing16};
 
   @media screen and (min-width: ${GridConfig.tablet.minWidth}) {
