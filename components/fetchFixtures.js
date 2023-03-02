@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function fetchFixtures() {
+export function FetchFixtures() {
   const [fixtureData, setFixtureData] = useState([]);
 
   useEffect(() => {

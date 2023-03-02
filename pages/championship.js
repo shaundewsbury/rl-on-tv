@@ -3,7 +3,7 @@ import Head from "next/head";
 import GridContainer from "../components/design-configs/GridContainer";
 import styled from "styled-components";
 import Colours from "../components/design-configs/Colours";
-import { fetchFixtures } from "../components/fetchFixtures";
+import { fetchFixtures } from "../components/FetchFixtures";
 const StyledParagraph = styled.p`
   ${Colours.blues.light}
 `;

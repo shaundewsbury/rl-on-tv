@@ -12,10 +12,10 @@ import GridItem from "../components/design-configs/GridItem";
 import Button from "../components/Button";
 import Filters from "../components/Filters";
 
-import { fetchFixtures } from "../components/fetchFixtures";
+import { FetchFixtures } from "../components/FetchFixtures";
 
 export default function SuperLeaguePage() {
-  let fixtures = fetchFixtures();
+  let fixtures = FetchFixtures();
 
   const [filteredFixtureChange, setFilteredFixtureChange] = useState();
 

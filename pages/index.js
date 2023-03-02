@@ -7,7 +7,7 @@ import FixtureList from "../components/FixtureList";
 import Fixture from "../components/Fixture";
 import SkeletonLoader from "../components/SkeletonLoader";
 
-import { fetchFixtures } from "../components/fetchFixtures";
+import { fetchFixtures } from "../components/FetchFixtures";
 
 export default function Home() {
   let fixtures = fetchFixtures();
