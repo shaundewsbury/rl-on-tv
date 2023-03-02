@@ -7,10 +7,10 @@ import FixtureList from "../components/FixtureList";
 import Fixture from "../components/Fixture";
 import SkeletonLoader from "../components/SkeletonLoader";
 
-import { fetchFixtures } from "../components/FetchFixtures";
+import { FetchFixtures } from "../components/FetchFixtures";
 
 export default function Home() {
-  let fixtures = fetchFixtures();
+  let fixtures = FetchFixtures();
 
   const [loadComplete, setLoadComplete] = useState(false);
 
