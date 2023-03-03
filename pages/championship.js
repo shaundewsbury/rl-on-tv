@@ -7,7 +7,6 @@ const StyledParagraph = styled.p`
   ${Colours.blues.light}
 `;
 const ChampionshipPage = (props) => {
-  console.log(fixtures);
   return (
     <div>
       <Head>
