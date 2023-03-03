@@ -21,7 +21,7 @@ const StyledFixture = styled(GridItem)`
     background: ${Colours.blues.light};
     padding: ${Spacing.spacing8};
     color: ${Colours.blues.dark};
-    border-radius: 0 4px 0 0;
+    border-radius: 4px 4px 0 0;
   }
 
   img {

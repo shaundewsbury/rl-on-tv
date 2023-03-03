@@ -12,7 +12,7 @@ import GridItem from "../components/design-configs/GridItem";
 import Button from "../components/Button";
 import Filters from "../components/Filters";
 
-export default function SuperLeaguePage() {
+export default function NrlPage() {
   let fixtures = FetchFixtures();
 
   const [filteredFixtureChange, setFilteredFixtureChange] = useState();
@@ -34,7 +34,7 @@ export default function SuperLeaguePage() {
   let activeFixtures = fixtures.filter(
     (fixture) =>
       `${fixture.date}${fixture.time}` > todaysDate &&
-      `${fixture.competition}` === "Super League"
+      `${fixture.competition}` === "NRL"
   );
 
   let expiredFixtures = fixtures.filter((fixture) => fixture.date < todaysDate);
