@@ -6,7 +6,6 @@ import PageTitle from "../components/layouts/PageTitle";
 import FixtureList from "../components/FixtureList";
 import Fixture from "../components/Fixture";
 import SkeletonLoader from "../components/SkeletonLoader";
-
 import { FetchFixtures } from "../components/FetchFixtures";
 
 export default function Home() {

@@ -6,13 +6,11 @@ import PageTitle from "../components/layouts/PageTitle";
 import FixtureList from "../components/FixtureList";
 import Fixture from "../components/Fixture";
 import SkeletonLoader from "../components/SkeletonLoader";
-
+import { FetchFixtures } from "../components/FetchFixtures";
 import GridItem from "../components/design-configs/GridItem";
 
 import Button from "../components/Button";
 import Filters from "../components/Filters";
-
-import { FetchFixtures } from "../components/FetchFixtures";
 
 export default function SuperLeaguePage() {
   let fixtures = FetchFixtures();
