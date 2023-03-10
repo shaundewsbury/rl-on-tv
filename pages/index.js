@@ -26,12 +26,15 @@ export default function Home() {
   };
 
   const endOfCurrentWeek =
-    getEndOfCurrentWeek(0).toISOString().split("T")[0] + 2359;
-  const todaysDate =
-    new Date().toISOString().split("T")[0] + new Date().getTime();
+    getEndOfCurrentWeek(0).toISOString().split("T")[0] + " 23:59";
+  const todaysDate = new Date().toISOString().split("T")[0] + " 23:59";
+
+  console.log(endOfCurrentWeek);
 
   fixtures = fixtures.filter(
-    (fixture) => (fixture.date < endOfCurrentWeek) & (fixture.date > todaysDate)
+    (fixture) =>
+      (`${fixture.date}${fixture.time}` < endOfCurrentWeek) &
+      (`${fixture.date}${fixture.time}` > todaysDate)
   );
 
   return (

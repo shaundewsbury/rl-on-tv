@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { useRouter } from "next/router";
+
 import {
   GridConfig,
   GridContainer,
@@ -56,6 +58,11 @@ const StyledFilters = styled.div`
   .menu {
     display: flex;
     justify-content: space-between;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   .filterType {
@@ -104,28 +111,46 @@ const Filters = ({
   const [activePanel, setActivePanel] = useState(false);
 
   let applyTeamFilter;
+  const routerQueryArray = [];
 
   const teamFilterClickHandler = (e) => {
     e.target.classList.toggle("active");
     const clickedTeam = e.target.innerHTML;
+    const clickedTeamString = clickedTeam.toLowerCase().replace(/ /g, "-");
 
     applyTeamFilter = fixtures.filter(
       (fixture) =>
         fixture.homeTeam === clickedTeam || fixture.awayTeam === clickedTeam
     );
+
+    console.log(applyTeamFilter);
+
+    routerQueryArray.push(...routerQueryArray, clickedTeamString);
+    console.log(routerQueryArray);
+
+    router.push({
+      query: `team=${routerQueryArray}`,
+    });
   };
 
   const openFilterPanelClickHandler = () => {
     setActivePanel(true);
   };
+
   const closeFilterPanelClickHandler = () => {
     setActivePanel(false);
   };
   const applyFiltersHandler = () => {
     setActivePanel(false);
-    returnedFixtures = applyTeamFilter;
+    returnedFixtures.push(applyTeamFilter);
+    console.log(applyTeamFilter);
     setFilteredFixtureChange(returnedFixtures);
   };
+
+  const router = useRouter();
+
+  const { team } = router.query;
+  const query = router.query;
 
   return (
     <GridContainer>

@@ -13,23 +13,12 @@ import Button from "../components/Button";
 import Filters from "../components/Filters";
 
 export default function SuperLeaguePage() {
-  let fixtures = FetchFixtures();
-
+  const [loadComplete, setLoadComplete] = useState(false);
   const [filteredFixtureChange, setFilteredFixtureChange] = useState();
 
-  console.log("NEW USE STATE", fixtures);
+  let fixtures = FetchFixtures();
 
-  const [loadComplete, setLoadComplete] = useState(false);
-
-  if (fixtures.length > 0) {
-    setTimeout(function () {
-      setLoadComplete(true);
-    }, 1000);
-  }
-
-  const [showPreviousFixtures, setShowPreviousFixtures] = useState(false);
-
-  const todaysDate = new Date().toISOString().split("T")[0] + "23:59";
+  const todaysDate = new Date().toISOString().split("T")[0] + " 23:59";
 
   let activeFixtures = fixtures.filter(
     (fixture) =>
@@ -37,7 +26,12 @@ export default function SuperLeaguePage() {
       `${fixture.competition}` === "Super League"
   );
 
-  let expiredFixtures = fixtures.filter((fixture) => fixture.date < todaysDate);
+  if (fixtures.length > 0) {
+    setTimeout(function () {
+      setLoadComplete(true);
+      setFilteredFixtureChange(activeFixtures);
+    }, 1000);
+  }
 
   // Teams available
   let teamsOnTv = [];
@@ -50,28 +44,6 @@ export default function SuperLeaguePage() {
   );
   teamsOnTv.sort();
 
-  // Channels available
-  let channelList = [];
-  for (let fixture of activeFixtures) {
-    channelList.push(fixture.channel);
-  }
-  channelList = channelList.filter(
-    (value, index, array) => array.indexOf(value) === index
-  );
-  channelList.sort();
-
-  const teamFilterClickHandler = (team) => {
-    const selectedTeam = team.target.innerHTML;
-    console.log(team.target.innerHTML);
-
-    activeFixtures = activeFixtures.filter(
-      (team) => team.homeTeam === selectedTeam || team.awayTeam === selectedTeam
-    );
-  };
-
-  const showPreviousFixturesClickHandler = () => {
-    setShowPreviousFixtures(!showPreviousFixtures);
-  };
   return (
     <div>
       <Head>
@@ -88,8 +60,8 @@ export default function SuperLeaguePage() {
 
         <Filters
           teamsOnTv={teamsOnTv}
-          channelList={channelList}
-          fixtures={fixtures}
+          // channelList={channelList}
+          fixtures={activeFixtures}
           setFilteredFixtureChange={setFilteredFixtureChange}
         />
 
@@ -103,7 +75,6 @@ export default function SuperLeaguePage() {
             </>
           )}
           {loadComplete &&
-            // filteredFixtureChange
             activeFixtures.map((fixture) => (
               <Fixture
                 key={fixture.id}
