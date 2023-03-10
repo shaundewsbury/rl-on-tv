@@ -32,7 +32,7 @@ const StyledFilters = styled.div`
   height: 100vh;
   background: ${Colours.blues.light};
   opacity: 0;
-  transition: all 0.5s ease-in;
+  transition: all 0.25s ease-in;
   box-shadow: 4px 4px 0px ${Colours.blues.dark};
 
   @media screen and (min-width: ${GridConfig.tablet.minWidth}) {
@@ -110,8 +110,9 @@ const Filters = ({
   setFilteredFixtures,
 }) => {
   const [activePanel, setActivePanel] = useState(false);
+  const [selectedTeams, setSelectedTeams] = useState([]);
 
-  const routerQueryArray = [];
+  // const routerQueryArray = [];
 
   const teamFilterClickHandler = (e) => {
     const target = e.target;
@@ -120,19 +121,38 @@ const Filters = ({
     if (target.classList.contains("active")) {
       target.classList.remove("active");
 
-      const teamRemove = filteredFixtures.filter(
-        (team) => team.homeTeam !== clickedTeam || team.awayTeam !== clickedTeam
+      let removeTeamFilter = filteredFixtures.filter(
+        (fixture) => fixture.homeTeam !== clickedTeam
       );
-      filteredFixtures = teamRemove;
-      console.log(filteredFixtures);
+      removeTeamFilter = removeTeamFilter.filter(
+        (fixture) => fixture.awayTeam !== clickedTeam
+      );
+
+      removeTeamFilter.length > 0
+        ? (filteredFixtures = removeTeamFilter)
+        : (filteredFixtures = []);
     } else {
       target.classList.add("active");
-      const applyTeamFilter = fixtures.filter(
+
+      let applyTeamFilter = fixtures.filter(
         (fixture) =>
           fixture.homeTeam === clickedTeam || fixture.awayTeam === clickedTeam
       );
+
+      applyTeamFilter.push.apply(applyTeamFilter, filteredFixtures);
+
+      const removeDuplicates = new Set();
+      applyTeamFilter = applyTeamFilter.filter((el) => {
+        const duplicate = removeDuplicates.has(el.id);
+        removeDuplicates.add(el.id);
+        return !duplicate;
+      });
       filteredFixtures = applyTeamFilter;
-      console.log(filteredFixtures);
+
+      setSelectedTeams([...selectedTeams, clickedTeam]);
+
+      // setFixtureHolding(filteredFixtures);
+      // console.log(fixtureHolding);
     }
 
     // For URL Query
@@ -154,8 +174,13 @@ const Filters = ({
   };
   const applyFiltersHandler = () => {
     setActivePanel(false);
-    console.log(filteredFixtures);
-    setFilteredFixtures(filteredFixtures);
+    console.log(selectedTeams);
+
+    if (
+      filteredFixtures.length === 0
+        ? setFilteredFixtures(fixtures)
+        : setFilteredFixtures(filteredFixtures)
+    );
   };
 
   const resetFiltersHandler = () => {
@@ -179,6 +204,8 @@ const Filters = ({
       <GridRow>
         <StyledGridItem>
           <Button title="Filters" onClick={openFilterPanelClickHandler} />
+
+          {selectedTeams.length > 0 && <p>Teams: {selectedTeams}</p>}
           <StyledFilters className={activePanel ? "active" : ""}>
             <div className="menu">
               <h3>Filters</h3>
