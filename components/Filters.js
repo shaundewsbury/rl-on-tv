@@ -131,6 +131,8 @@ const Filters = ({
       removeTeamFilter.length > 0
         ? (filteredFixtures = removeTeamFilter)
         : (filteredFixtures = []);
+
+      setSelectedTeams(selectedTeams.filter((i) => i !== clickedTeam));
     } else {
       target.classList.add("active");
 
@@ -149,20 +151,8 @@ const Filters = ({
       });
       filteredFixtures = applyTeamFilter;
 
-      setSelectedTeams([...selectedTeams, clickedTeam]);
-
-      // setFixtureHolding(filteredFixtures);
-      // console.log(fixtureHolding);
+      setSelectedTeams((prev) => [target.innerHTML, ...prev]);
     }
-
-    // For URL Query
-    // const clickedTeamString = clickedTeam.toLowerCase().replace(/ /g, "-");
-    // routerQueryArray.push(...routerQueryArray, clickedTeamString);
-    // console.log(routerQueryArray);
-
-    // router.push({
-    //   query: `team=${routerQueryArray}`,
-    // });
   };
 
   const openFilterPanelClickHandler = () => {
@@ -199,13 +189,30 @@ const Filters = ({
   const { team } = router.query;
   const query = router.query;
 
+  const StyledActiveFilters = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    gap: ${Spacing.spacing16};
+    margin-top: ${Spacing.spacing16};
+
+    span {
+      background: ${Colours.blues.light};
+      padding: 4px 16px;
+      width: auto;
+    }
+  `;
+
   return (
     <GridContainer>
       <GridRow>
         <StyledGridItem>
           <Button title="Filters" onClick={openFilterPanelClickHandler} />
 
-          {selectedTeams.length > 0 && <p>Teams: {selectedTeams}</p>}
+          <StyledActiveFilters className="activeFilters">
+            {selectedTeams.length > 0 &&
+              selectedTeams.map((team) => <span key={team}>{team}</span>)}
+          </StyledActiveFilters>
+
           <StyledFilters className={activePanel ? "active" : ""}>
             <div className="menu">
               <h3>Filters</h3>
