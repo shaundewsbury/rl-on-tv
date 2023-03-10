@@ -15,8 +15,9 @@ const StyledFixture = styled(GridItem)`
   background: #f5f5f5;
   align-items: center;
   text-align: center;
-  border-radius: 8px;
-  box-shadow: 4px 4px 8px ${Colours.blues.dark};
+  // border-radius: 8px;
+  border: 2px solid ${Colours.blues.dark};
+  box-shadow: 4px 4px 0px ${Colours.blues.dark};
 
   p {
     ${Typography.paragraph.default}
@@ -26,7 +27,6 @@ const StyledFixture = styled(GridItem)`
     background: ${Colours.blues.light};
     padding: ${Spacing.spacing8};
     color: ${Colours.blues.dark};
-    border-radius: 4px 4px 0 0;
   }
 
   img {

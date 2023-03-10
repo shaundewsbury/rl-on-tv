@@ -14,14 +14,13 @@ const StyledFixture = styled(GridItem)`
   background: #f5f5f5;
   align-items: center;
   text-align: center;
-  border-radius: 8px;
-  box-shadow: 4px 4px 8px #001325;
+  border: 2px solid ${Colours.blues.dark};
+  box-shadow: 4px 4px 0px ${Colours.blues.dark};
 
   .fixtureType {
     background: ${Colours.blues.light};
     padding: ${Spacing.spacing8};
     color: ${Colours.blues.dark};
-    border-radius: 4px 4px 0 0;
   }
 
   img {

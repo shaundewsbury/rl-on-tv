@@ -14,7 +14,7 @@ import Filters from "../components/Filters";
 
 export default function SuperLeaguePage() {
   const [loadComplete, setLoadComplete] = useState(false);
-  const [filteredFixtureChange, setFilteredFixtureChange] = useState();
+  const [filteredFixtures, setFilteredFixtures] = useState();
 
   let fixtures = FetchFixtures();
 
@@ -29,7 +29,7 @@ export default function SuperLeaguePage() {
   if (fixtures.length > 0) {
     setTimeout(function () {
       setLoadComplete(true);
-      setFilteredFixtureChange(activeFixtures);
+      // setFilteredFixtures(activeFixtures);
     }, 1000);
   }
 
@@ -62,7 +62,7 @@ export default function SuperLeaguePage() {
           teamsOnTv={teamsOnTv}
           // channelList={channelList}
           fixtures={activeFixtures}
-          setFilteredFixtureChange={setFilteredFixtureChange}
+          setFilteredFixtures={setFilteredFixtures}
         />
 
         <FixtureList>
@@ -74,46 +74,32 @@ export default function SuperLeaguePage() {
               <SkeletonLoader />
             </>
           )}
-          {loadComplete &&
-            activeFixtures.map((fixture) => (
-              <Fixture
-                key={fixture.id}
-                competition={fixture.competition}
-                round={fixture.round}
-                date={fixture.date}
-                homeTeam={fixture.homeTeam}
-                awayTeam={fixture.awayTeam}
-                time={fixture.time}
-                channel={fixture.channel}
-              />
-            ))}
+          {loadComplete && filteredFixtures
+            ? filteredFixtures.map((fixture) => (
+                <Fixture
+                  key={fixture.id}
+                  competition={fixture.competition}
+                  round={fixture.round}
+                  date={fixture.date}
+                  homeTeam={fixture.homeTeam}
+                  awayTeam={fixture.awayTeam}
+                  time={fixture.time}
+                  channel={fixture.channel}
+                />
+              ))
+            : activeFixtures.map((fixture) => (
+                <Fixture
+                  key={fixture.id}
+                  competition={fixture.competition}
+                  round={fixture.round}
+                  date={fixture.date}
+                  homeTeam={fixture.homeTeam}
+                  awayTeam={fixture.awayTeam}
+                  time={fixture.time}
+                  channel={fixture.channel}
+                />
+              ))}
         </FixtureList>
-
-        {/* <FixtureList>
-          {showPreviousFixtures &&
-            expiredFixtures.map((fixture) => (
-              <Fixture
-                key={fixture.id}
-                competition={fixture.competition}
-                round={fixture.round}
-                date={fixture.date}
-                homeTeam={fixture.homeTeam}
-                awayTeam={fixture.awayTeam}
-                time={fixture.time}
-                channel={fixture.channel}
-              />
-            ))}
-          <GridItem>
-            <Button
-              onClick={showPreviousFixturesClickHandler}
-              title={
-                showPreviousFixtures
-                  ? "Hide Previous Fixtures"
-                  : "Show Previous Fixtures"
-              }
-            />
-          </GridItem>
-        </FixtureList> */}
       </main>
     </div>
   );

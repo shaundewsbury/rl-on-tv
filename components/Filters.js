@@ -33,7 +33,7 @@ const StyledFilters = styled.div`
   background: ${Colours.blues.light};
   opacity: 0;
   transition: all 0.5s ease-in;
-  box-shadow: 4px 4px 8px ${Colours.blues.dark};
+  box-shadow: 4px 4px 0px ${Colours.blues.dark};
 
   @media screen and (min-width: ${GridConfig.tablet.minWidth}) {
     width: 60%;
@@ -62,6 +62,7 @@ const StyledFilters = styled.div`
     svg {
       width: 32px;
       height: 32px;
+      cursor: pointer;
     }
   }
 
@@ -92,45 +93,56 @@ const StyledFilters = styled.div`
       }
     }
   }
+
+  .filterButtons {
+    position: absolute;
+    bottom: ${Spacing.spacing8};
+  }
 `;
 
-const StyledButton = styled(Button)`
-  position: absolute;
-  bottom: ${Spacing.spacing8};
-`;
-
-let returnedFixtures = [];
+let filteredFixtures = [];
 
 const Filters = ({
   filtersPanel,
   teamsOnTv,
   channelList,
   fixtures,
-  setFilteredFixtureChange,
+  setFilteredFixtures,
 }) => {
   const [activePanel, setActivePanel] = useState(false);
 
-  let applyTeamFilter;
   const routerQueryArray = [];
 
   const teamFilterClickHandler = (e) => {
-    e.target.classList.toggle("active");
+    const target = e.target;
     const clickedTeam = e.target.innerHTML;
-    const clickedTeamString = clickedTeam.toLowerCase().replace(/ /g, "-");
 
-    applyTeamFilter = fixtures.filter(
-      (fixture) =>
-        fixture.homeTeam === clickedTeam || fixture.awayTeam === clickedTeam
-    );
+    if (target.classList.contains("active")) {
+      target.classList.remove("active");
 
-    console.log(applyTeamFilter);
+      const teamRemove = filteredFixtures.filter(
+        (team) => team.homeTeam !== clickedTeam || team.awayTeam !== clickedTeam
+      );
+      filteredFixtures = teamRemove;
+      console.log(filteredFixtures);
+    } else {
+      target.classList.add("active");
+      const applyTeamFilter = fixtures.filter(
+        (fixture) =>
+          fixture.homeTeam === clickedTeam || fixture.awayTeam === clickedTeam
+      );
+      filteredFixtures = applyTeamFilter;
+      console.log(filteredFixtures);
+    }
 
-    routerQueryArray.push(...routerQueryArray, clickedTeamString);
-    console.log(routerQueryArray);
+    // For URL Query
+    // const clickedTeamString = clickedTeam.toLowerCase().replace(/ /g, "-");
+    // routerQueryArray.push(...routerQueryArray, clickedTeamString);
+    // console.log(routerQueryArray);
 
-    router.push({
-      query: `team=${routerQueryArray}`,
-    });
+    // router.push({
+    //   query: `team=${routerQueryArray}`,
+    // });
   };
 
   const openFilterPanelClickHandler = () => {
@@ -142,9 +154,19 @@ const Filters = ({
   };
   const applyFiltersHandler = () => {
     setActivePanel(false);
-    returnedFixtures.push(applyTeamFilter);
-    console.log(applyTeamFilter);
-    setFilteredFixtureChange(returnedFixtures);
+    console.log(filteredFixtures);
+    setFilteredFixtures(filteredFixtures);
+  };
+
+  const resetFiltersHandler = () => {
+    const removeActiveClasses = document.querySelectorAll("p.active");
+    removeActiveClasses.forEach((el) => {
+      el.classList.remove("active");
+    });
+
+    // setActivePanel(false);
+
+    setFilteredFixtures(fixtures);
   };
 
   const router = useRouter();
@@ -164,6 +186,7 @@ const Filters = ({
                 <AiOutlineClose />
               </div>
             </div>
+
             <div className="filterType">
               <h4>By team</h4>
               {teamsOnTv.map((team, index) => (
@@ -172,14 +195,11 @@ const Filters = ({
                 </p>
               ))}
             </div>
-            {/* <div className="filterType">
-              <h4>By Channel</h4>
 
-              {channelList.map((channel, index) => (
-                <p key={index}>{channel}</p>
-              ))}
-            </div> */}
-            <StyledButton title="Apply Filters" onClick={applyFiltersHandler} />
+            <div className="filterButtons">
+              <Button title="Apply Filters" onClick={applyFiltersHandler} />
+              <Button textLink title="Reset" onClick={resetFiltersHandler} />
+            </div>
           </StyledFilters>
         </StyledGridItem>
       </GridRow>
@@ -187,8 +207,8 @@ const Filters = ({
   );
 };
 
-export function returnedFilteredFixtures() {
-  return returnedFixtures;
-}
+// export function returnedFilteredFixtures() {
+//   return filteredFixtures;
+// }
 
 export default Filters;

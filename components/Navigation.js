@@ -17,9 +17,10 @@ const StyledNavigation = styled.ul`
   list-style: none;
 
   li {
-    background: ${Colours.white};
+    background: ${Colours.blues.light};
     padding: ${Spacing.spacing8} ${Spacing.spacing16};
-    box-shadow: 3px 3px 8px #001325;
+    border: 2px solid ${Colours.blues.dark};
+    box-shadow: 4px 4px 0px ${Colours.blues.dark};
 
     // a.active {
     //   font-weight: bold;
